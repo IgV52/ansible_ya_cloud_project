@@ -1,0 +1,1 @@
+# ansible_ya_cloud_project
