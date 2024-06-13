@@ -1,0 +1,23 @@
+- name: Test app hosts
+  hosts: app
+  tags: app
+  tasks:
+    - name: Get Docker service status
+      register: docker_service_info
+      systemd:
+        name: docker
+    - name: Check Docker is working
+      assert:
+        that:
+          - docker_service_info.status.ActiveState == 'active'
+- name: Test database hosts
+  hosts: database
+  tasks:
+    - name: Get Postgres service status
+      register: postgres_service_info
+      systemd:
+        name: postgresql
+    - name: Check Postgres is working
+      assert:
+        that:
+          - postgres_service_info.status.ActiveState == 'active'
